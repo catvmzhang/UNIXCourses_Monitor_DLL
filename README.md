@@ -3,7 +3,7 @@
 Monitor File and Directory Activities of Dynamically Linked Programs.
 we are going to practive library injection and API hijacking. Please implement a "library call monitor"(LCM) program that is able to show the activities of an arbitrary binary running on a Linux operating system. The result should be output to either stderr or a filename, e.g., "fsmon.log". By default, the output is written to stderr. But you may write the output to a filename specfied by an environment variable "MONITOR_OUTPUT".
 
-### Minimum Requirements
+## Minimum Requirements
 ```
 closedir  opendir   readdir   creat     open        read      write     dup 
 dup2      close     lstat     stat      pwrite      fopen     fclose    fread 
@@ -11,12 +11,12 @@ fwrite    fgetc     fgets     fscanf    fprintf     chdir     chown     chmod
 remove    rename    link      unlink    readlink    symlink   mkdir     rmdir
 ```
 
-### Display Function Call Parameters and Return Values
+## Display Function Call Parameters and Return Values
 * For char * data type, you may optionally print it out as a string.
 * For file descriptors (passed as an int), FILE*, and DIR* pointers, you can convert them to corresponding file names.
 * For struct stat or its pointer, retrieve meaningful information from the structure. For example, file type, file size, and permissions.
 
-### Sample
+## Sample
 ```
 $ MONITOR_OUTPUT=fsmon.log LD_PRELOAD=./fsmon.so head -n 1000 /etc/services > /dev/null
 $ cat fsmon.log
@@ -128,5 +128,5 @@ drwxrwxr-x  2 chuang chuang  4096 Apr  2 00:35 tests
 $
 ```
 
-### hints
+## hints
 Basically we have two different symbol tables. One is the regular symbol table and the other is dynamic table. The one removed by strip is the regular symbol table. So you will need to work with **nm -D** or **readelf --syms** to read the dynamic symbol table.
